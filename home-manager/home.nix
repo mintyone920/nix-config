@@ -35,17 +35,40 @@
   home = {
     username = "lukas";
     homeDirectory = "/home/lukas";
+
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
   };
 
-  programs.neovim.enable = true;
-  home.packages = with pkgs; [ steam ];
+  programs.nixvim = {
+    enable = true;
+  };
+
+  home.packages = with pkgs; [ 
+    steam
+    kitty
+  ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = pkgs.hyprland;
+    xwayland.enable = true;
+
+    settings = {
+      "$mod" = "Super";
+    };
+  };
 
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    userName = "Lukas Taroza";
+    userEmail = "mintyone920@gmail.com";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
+  home.stateVersion = "23.05";
 }

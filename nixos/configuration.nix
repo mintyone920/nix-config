@@ -49,11 +49,15 @@
       value.source = value.flake;
     })
     config.nix.registry;
-  environment.systemPackages = [
-    pkgs.git
-    pkgs.neovim
-    pkgs.wget
+
+  environment.systemPackages = with pkgs; [
+    git
+    neovim
+    wget
+    home-manager
   ];
+
+  programs.hyprland.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -72,12 +76,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
-
   users.users = {
     lukas = {
       initialPassword = "changeme";
@@ -94,7 +92,7 @@
     enable = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
     };
   };
 
