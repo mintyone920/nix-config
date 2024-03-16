@@ -11,6 +11,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 
   nixpkgs = {
@@ -43,6 +44,14 @@
 
   programs.nixvim = {
     enable = true;
+    colorschemes.nord = {
+      enable = true;
+    };
+    plugins = {
+      lualine = {
+        enable = true;
+      };
+    };
   };
 
   home.packages = with pkgs; [ 
