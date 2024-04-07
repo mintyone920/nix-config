@@ -51,24 +51,33 @@
     config.nix.registry;
 
   environment.systemPackages = with pkgs; [
+    hyprland
+    wlroots
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+    xdg-utils
+    xwayland
     git
+    home-manager
     neovim
     wget
-    home-manager
   ];
 
-  programs.hyprland.enable = true;
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
+    hyprland.enable = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nix.settings = {
-    experimental-features = "nix-command flakes";
-    auto-optimise-store = true;
+  networking = {
+    hostName = "mordor";
+    networkmanager.enable = true;
   };
-
-  networking.hostName = "mordor";
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
@@ -88,13 +97,21 @@
 
   services.getty.autologinUser = "lukas";
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = true;
+  services = {
+    dbus.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = true;
+      };
     };
   };
 
   system.stateVersion = "23.11";
+
+  nix.settings = {
+    experimental-features = "nix-command flakes";
+    auto-optimise-store = true;
+  };
 }

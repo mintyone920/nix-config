@@ -10,7 +10,8 @@
     # inputs.nix-colors.homeManagerModule
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    ./modules/nvim.nix
+    ./modules/hyprland.nix
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
@@ -29,7 +30,10 @@
     config = {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = _: true;
+      allowUnfreePredicate = _: true;      
+      permittedInsecurePackages = [
+        "nix-2.16.2"
+      ];
     };
   };
 
@@ -42,31 +46,20 @@
     };
   };
 
-  programs.nixvim = {
-    enable = true;
-    colorschemes.nord = {
-      enable = true;
-    };
-    plugins = {
-      lualine = {
-        enable = true;
-      };
-    };
-  };
 
   home.packages = with pkgs; [ 
     steam
     kitty
+    firefox
   ];
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = pkgs.hyprland;
-    xwayland.enable = true;
 
-    settings = {
-      "$mod" = "Super";
-    };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config.common.default = "*";
   };
 
   programs.home-manager.enable = true;
