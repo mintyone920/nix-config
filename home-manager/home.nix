@@ -12,6 +12,7 @@
     # You can also split up your configuration and import pieces of it here:
     ./modules/nvim.nix
     ./modules/hyprland.nix
+    ./modules/waybar.nix
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
@@ -43,6 +44,8 @@
 
     sessionVariables = {
       EDITOR = "nvim";
+      NIXOS_OZONE_WL = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 
@@ -50,7 +53,10 @@
   home.packages = with pkgs; [ 
     steam
     kitty
+    foot
     firefox
+    nerdfonts
+    rofi-wayland
   ];
 
 

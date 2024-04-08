@@ -27,6 +27,8 @@
         "SUPER, B, exec, firefox"
         "SUPER, Q, killactive"
 
+        "SUPER, SPACE, exec, rofi -show drun -show-icons"
+
         "SUPER SHIFT, Q, exit"
         # workspace swiching
         "SUPER, 1, workspace, 1"
